@@ -15,6 +15,13 @@ echo -n no > /etc/container_environment/INITRD
 
 ## Enable Ubuntu Universe and Multiverse.
 cp /build/sources.list /etc/apt/sources.list
+
+## Add a postgres repository for version 9.3
+echo 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' > /etc/apt/sources.list.d/pgdg.list
+
+## We need a postgres repository key
+cat /build/pgdg.key | apt-key add -
+
 apt-get update
 
 ## Fix some issues with APT packages.
@@ -36,5 +43,6 @@ $minimal_apt_get_install apt-transport-https
 apt-get dist-upgrade -y --no-install-recommends
 
 ## Fix locale.
-$minimal_apt_get_install language-pack-en
+$minimal_apt_get_install language-pack-en language-pack-pl
 locale-gen en_US
+locale-gen pl_PL.UTF-8

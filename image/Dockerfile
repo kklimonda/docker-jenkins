@@ -8,6 +8,8 @@ ADD . /build
 RUN /build/prepare.sh && \
 	/build/system_services.sh && \
 	/build/utilities.sh && \
+        /build/jenkins.sh && \
 	/build/cleanup.sh
 
+VOLUME ["/jenkins"]
 CMD ["/sbin/my_init"]
